@@ -6,12 +6,26 @@
         <title>{% block title %}Social Network{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'network/styles.css' %}" rel="stylesheet">
+        <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js" defer></script>
+        <script src="{% static 'network/javascript/CreatePost.js' %}" type="text/javascript" defer></script>
     </head>
     <body>
-
+        <div class="createPostPopup" id="createPostPopup">
+            <form class="content" method="post" enctype="multipart/form-data" id="createPostPopup-form">
+                {% csrf_token %}
+                <div class="heading">
+                    <h2>Create Post</h2>
+                    <box-icon name="collapse-alt" id="popupCloseBtn"></box-icon>
+                </div>
+                <div class="input-fields">
+                    <input class="form-control" type="file" accept=".png, .jpg, .jpeg"/>
+                    <textarea class="form-control" type="text" aria-label="caption" placeholder="Write a caption..."></textarea>
+                    <button class="form-control" type="submit" id="createPostButton">Share</button>
+                </div>
+            </form>
+        </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Network</a>
-          
             <div>
               <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
@@ -28,6 +42,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary" id="create-post-btn">Create Post</button>
                     </li>
                 {% else %}
                     <li class="nav-item">
