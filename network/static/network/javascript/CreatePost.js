@@ -10,4 +10,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
         createPostPopup.classList.remove('add');
         createPostPopup.classList.add('close');
     });
+
+    document.querySelector("#createPostButton").addEventListener('click', ()=>{
+        const form = document.querySelector("#createPostPopup-form");
+        if (form.checkValidity())
+        {
+
+        }
+    });
+    document.querySelector("#post-fileupload").addEventListener('change', ()=>{
+    })
 })

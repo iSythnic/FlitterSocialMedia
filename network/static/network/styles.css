@@ -19,6 +19,7 @@
 
 .createPostPopup.close
 {
+    animation: invisible .3s forwards;
     visibility: hidden;
 }
 
@@ -40,13 +41,13 @@
 .createPostPopup.show form
 {
     transform: scale(1);
-    animation: zoomIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    animation: zoomIn .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
 }
 
 .createPostPopup.close form
 {
     transform: scale(0);
-    animation: zoomOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    animation: zoomOut .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) backwards;
 }
 
 
@@ -86,5 +87,17 @@
     }
     100%{
         transform: scale(0);
+    }
+}
+
+@keyframes invisible {
+    0%{
+        visibility: visible;
+    }
+    99%{
+        visibility: visible;
+    }
+    100%{
+        visibility: hidden;
     }
 }
