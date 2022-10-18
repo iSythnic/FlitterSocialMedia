@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import User
 
@@ -61,3 +63,10 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
+
+def handle_post(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request is required"}, status=400)
+    print(request.POST)
+    print(request.FILES)
+    return JsonResponse({"message": "Sucessfully shared a post"}, status=201)

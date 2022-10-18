@@ -17,12 +17,11 @@
                     <h2>Create Post</h2>
                     <box-icon name="collapse-alt" id="popupCloseBtn"></box-icon>
                 </div>
-                <div>
-                    <img src="" alt=""/>
+                <div id="createPostPopup-image-display">
                 </div>
                 <div class="input-fields">
-                    <input class="form-control" type="file" accept=".png, .jpg, .jpeg" id="post-fileupload"required/>
-                    <textarea class="form-control" type="text" aria-label="caption" placeholder="Write a caption..." required></textarea>
+                    <input class="form-control" type="file" accept=".png, .jpg, .jpeg" id="post-fileupload" name="FileInput" required/>
+                    <textarea class="form-control" type="text" aria-label="caption" placeholder="Write a caption..." name="CaptionInput" required></textarea>
                     <button class="form-control" type="submit" id="createPostButton">Share</button>
                 </div>
             </form>
