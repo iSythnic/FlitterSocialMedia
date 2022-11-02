@@ -3,7 +3,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
-import json
+from django.db import Error
+from .models import *
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import User
@@ -67,6 +68,24 @@ def register(request):
 def handle_post(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST request is required"}, status=400)
-    print(request.POST)
+    print(request.POST['CaptionInput'])
     print(request.FILES)
+    caption = request.POST['CaptionInput']
+    file = request.FILES['FileInput']
+    user = request.user
+    try:
+        post = Post(user=user, headline=caption, image=file)
+        post.save()
+    except Error as er:
+        return JsonResponse({"Error": er}, status=500)
+        
     return JsonResponse({"message": "Sucessfully shared a post"}, status=201)
+
+def handle_feed(request):
+    user = request.user
+    if request.method != "GET":
+        return JsonResponse({"error": "GET request is required"}, status=400)
+    elif not user.is_authenticated:
+        return JsonResponse({"error": "Not authorized to handle this request"}, status=402)
+    posts = Post.objects.filter(user__in=user.following.all(), timestamp__year=datetime.now().year, timestamp__month=datetime.now().month).order_by("-timestamp")
+    return JsonResponse([post.serialize() for post in posts], status=200, safe=False)

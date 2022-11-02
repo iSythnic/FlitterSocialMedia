@@ -10,22 +10,24 @@
         <script src="{% static 'network/javascript/CreatePost.js' %}" type="text/javascript" defer></script>
     </head>
     <body>
-        <div class="createPostPopup" id="createPostPopup">
-            <form class="content" method="post" enctype="multipart/form-data" id="createPostPopup-form">
-                {% csrf_token %}
-                <div class="heading">
-                    <h2>Create Post</h2>
-                    <box-icon name="collapse-alt" id="popupCloseBtn"></box-icon>
-                </div>
-                <div id="createPostPopup-image-display">
-                </div>
-                <div class="input-fields">
-                    <input class="form-control" type="file" accept=".png, .jpg, .jpeg" id="post-fileupload" name="FileInput" required/>
-                    <textarea class="form-control" type="text" aria-label="caption" placeholder="Write a caption..." name="CaptionInput" required></textarea>
-                    <button class="form-control" type="submit" id="createPostButton">Share</button>
-                </div>
-            </form>
-        </div>
+        {% if user.is_authenticated %}
+            <div class="createPostPopup" id="createPostPopup">
+                <form class="content" method="post" enctype="multipart/form-data" id="createPostPopup-form">
+                    {% csrf_token %}
+                    <div class="heading">
+                        <h2>Create Post</h2>
+                        <box-icon name="collapse-alt" id="popupCloseBtn"></box-icon>
+                    </div>
+                    <div id="createPostPopup-image-display">
+                    </div>
+                    <div class="input-fields">
+                        <input class="form-control" type="file" accept=".png, .jpg, .jpeg" id="post-fileupload" name="FileInput" required/>
+                        <textarea class="form-control" type="text" aria-label="caption" placeholder="Write a caption..." name="CaptionInput" required></textarea>
+                        <button class="form-control" type="submit" id="createPostButton">Share</button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Network</a>
             <div>
