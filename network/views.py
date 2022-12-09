@@ -66,18 +66,21 @@ def register(request):
         return render(request, "network/register.html")
 
 def handle_post(request):
+    user = request.user
     if request.method != "POST":
         return JsonResponse({"error": "POST request is required"}, status=400)
+    elif not user.is_authenticated:
+        return JsonResponse({"error": "Forbidden, unauthorized access"}, status=403)
+
     print(request.POST['CaptionInput'])
     print(request.FILES)
     caption = request.POST['CaptionInput']
     file = request.FILES['FileInput']
-    user = request.user
     try:
         post = Post(user=user, headline=caption, image=file)
         post.save()
     except Error as er:
-        return JsonResponse({"Error": er}, status=500)
+        return JsonResponse({"error": er}, status=500)
         
     return JsonResponse({"message": "Sucessfully shared a post"}, status=201)
 
@@ -87,5 +90,26 @@ def handle_feed(request):
         return JsonResponse({"error": "GET request is required"}, status=400)
     elif not user.is_authenticated:
         return JsonResponse({"error": "Not authorized to handle this request"}, status=402)
-    posts = Post.objects.filter(user__in=user.following.all(), timestamp__year=datetime.now().year, timestamp__month=datetime.now().month).order_by("-timestamp")
-    return JsonResponse([post.serialize() for post in posts], status=200, safe=False)
+    try:
+        posts = Post.objects.filter(user__in=user.following.all(), timestamp__year=datetime.now().year, timestamp__month=datetime.now().month).order_by("-timestamp")
+    except Error as er:
+        return JsonResponse({"error": er}, status=500)
+
+    return JsonResponse([post.serializeFeed() for post in posts], status=200, safe=False)
+
+def profile(request, id):
+    user = request.user
+    if request.method != "GET":
+        return JsonResponse({"error": "GET request is required"}, status=400)
+    elif not user.is_authenticated:
+        return HttpResponseRedirect(reverse("login"))
+    try:
+        requestedUser = User.objects.get(id=id)
+    except Error as er:
+        return JsonResponse({"error": er}, status=500)
+    print(requestedUser.serializeFullProfile(user))
+    return render(request, "network/profile.html", requestedUser.serializeFullProfile(user))
+
+def fetch_user_posts(request, id):
+    user = request.user
+    
