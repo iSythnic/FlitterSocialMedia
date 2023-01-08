@@ -2,53 +2,41 @@
 {% load static %}
 
 {% block scripts %}
-    <script src="{% static 'network/javascript/LoadFeed.js' %}" type="text/javascript" defer></script>
+    <scirpt src="{% static 'network/javascript/LoadFeed.js' %}" type="text/javascript" defer></scirpt>
 {% endblock %}
 
 {% block body %}
     <div class="feed">
         <ul class="feed-container" id="feed-container">
             <li>
-                <article class="feed-card">
-                    <div class="feed-card-header">
-                        <img src="https://i.pinimg.com/236x/19/e7/d4/19e7d4903807fd3a4889687f2d800687--k-fashion-ulzzang-boy.jpg" alt="Profile Picture"/>
-                        <span>Yuhang Li</span>
+                <article class="post-card">
+                    <div class="post-card-header">
+                        <a class="profile-img-container">
+                            <img class="profile-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg">
+                        </a>
+                        <a class="profile-username">ElonMa</a>
+                        <box-icon name='dots-vertical-rounded' class="icon"></box-icon>
                     </div>
-                    <div class="feed-card-image">
-                        <img src="https://res.cloudinary.com/caradvice/image/private/q_auto/v1592867792/scclsw5etoppigyikhx8.jpg">
+                    <div class="post-image-container">
+                        <img class="post-image" src="https://imgv3.fotor.com/images/blog-cover-image/part-blurry-image.jpg">
                     </div>
-                    <div class="feed-card-meta">
-                        <div class="interactions">
+                    <div class="post-card-meta">
+                        <div class="meta-action">
                             <box-icon name='heart' animation="tada-hover" class="icon"></box-icon>
                             <box-icon name='comment' class="icon"></box-icon>
+                            <box-icon name='bookmark' class="icon"></box-icon>
                         </div>
-                        <span>134,000 Likes</span>
+                        <span>13,333 Likes</span>
                     </div>
-                    <div class="feed-card-content">
-                        <p>Only up. Look at my new bad baby ;) </p>
+                    <div class="post-description-container">
+                        <p>
+                            #Neuralink is aiming to design a fully implantable, cosmetically invisible brain-computer interface to let you control a computer or mobile device anywhere you go.
+                            Micron-scale threads would be inserted into areas of the brain that control movement. Each thread contains many electrodes and connects them to an implant called the “Link.”
+                        </p>
                     </div>
-                </article>
-            </li>
-
-            <li>
-                <article class="feed-card">
-                    <div class="feed-card-header">
-                        <img src="https://static.wixstatic.com/media/a491ae_3608173b93d14dc288b9dfa1f8528135~mv2.png/v1/fit/w_940%2Ch_788%2Cal_c/file.png" alt="Profile Picture"/>
-                        <span>Yuhang Li</span>
-                    </div>
-                    <div class="feed-card-image">
-                        <img src="https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/model_gw/aventador/2021/gate_aven_01_m.jpg">
-                    </div>
-                    <div class="feed-card-meta">
-                        <div class="interactions">
-                            <box-icon name='heart' animation="tada-hover" class="icon"></box-icon>
-                            <box-icon name='comment' class="icon"></box-icon>
-                        </div>
-                        <span>134,000 Likes</span>
-                    </div>
-                    <div class="feed-card-content">
-                        <p>Only up. Look at my new bad baby ;) </p>
-                    </div>
+                    <span class="post-timestamp">
+                        3 days ago
+                    </span>
                 </article>
             </li>
         </ul>

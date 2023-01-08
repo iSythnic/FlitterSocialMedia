@@ -1,13 +1,13 @@
 loadContent = async () =>{
     const contentarea = document.querySelector("#feed-container");
-    const response = await fetch('http://127.0.0.1:8000/loadfeed', {method:"GET"})
-    const result = await response.json();
-
+    const response = await fetch('http://127.0.0.1:8000/loadfeed', {method:"GET"});
     if (!response.ok)
     {
         console.log(result.error);
         return;
     }
+
+    const result = await response.json();
 
     const container = document.createElement('ul');
     result.forEach(post => {
@@ -15,10 +15,10 @@ loadContent = async () =>{
         card.innerHTML = 
         `
             <article class="feed-card" data-id="${post.id}">
-                <div class="feed-card-header">
+                <a class="feed-card-header" href="http://127.0.0.1:8000/profile/${post.userID}">
                     <img src="${((post.userimage === "None") ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png": post.userimage)}"alt="Profile Picture"/>
                     <span>${post.username}</span>
-                </div>
+                </a>
                 <div class="feed-card-image">
                     <img src="${post.image}">
                 </div>

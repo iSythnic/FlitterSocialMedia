@@ -91,7 +91,10 @@ def handle_feed(request):
     elif not user.is_authenticated:
         return JsonResponse({"error": "Not authorized to handle this request"}, status=402)
     try:
-        posts = Post.objects.filter(user__in=user.following.all(), timestamp__year=datetime.now().year, timestamp__month=datetime.now().month).order_by("-timestamp")
+        FollowingSet = UserFollowing.objects.all().filter(user=user)
+        PostFollow = [UserFollowingRelationship.following for UserFollowingRelationship in FollowingSet]
+        posts = Post.objects.filter(user__in=PostFollow).order_by("-timestamp")
+        print(posts)
     except Error as er:
         return JsonResponse({"error": er}, status=500)
 
@@ -112,4 +115,15 @@ def profile(request, id):
 
 def fetch_user_posts(request, id):
     user = request.user
+
+    if request.method != "GET":
+        return JsonResponse({"error": "GET request is required"}, status=400)
+    elif not user.is_authenticated:
+        return JsonResponse({"error": "Not authorized to handle this request"}, status=402)
+    try:
+        posts = Post.objects.all().filter(user__id=id).order_by("-timestamp")
+    except Error as err:
+        return JsonResponse({"error": err}, status=500)
+    print(posts)
+    return JsonResponse([post.serializeProfile() for post in posts], status=200, safe=False)    
     

@@ -17,12 +17,15 @@ class User(AbstractUser):
             "id": self.id,
             "username": self.username, 
             "userimage": (self.profileImage.url if self.profileImage else "None"),
-            "followerCount": self.followers.count(),
-            "followingCount": self.following.count(),
-            "isRequestedUserFollowing": (requestingUser in self.followers.all()),
+            "followerCount": UserFollowing.objects.filter(following=self).count(),
+            "followingCount": UserFollowing.objects.filter(user=self).count(),
+            "isRequestedUserFollowing": (UserFollowing.objects.filter(user=requestingUser, following=self) is not None),
             "biography": self.biography,
             "isSelf": (requestingUser.id is self.id)
         }
+    
+    def __str__(self):
+        return f"{self.id}, {self.username}"
 
 class UserFollowing(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
@@ -32,6 +35,8 @@ class UserFollowing(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['user', 'following'], name="unique_user_following")
         ]
+    def __str__(self):
+        return f"{self.user.username}:{self.user.id} -> {self.following.username}:{self.following.id}"
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Comment_user")
@@ -53,7 +58,7 @@ class Post(models.Model):
         elif self.timestamp.month == time.month:
             return f"{time.day - self.timestamp.day} days ago"
         elif self.timestamp.year == time.year:
-            return self.timestamp.strftime("b% %d")
+            return self.timestamp.strftime("%b %d")
         else:
             return f"{time.year - self.timestamp.year} years ago"
 
@@ -61,9 +66,18 @@ class Post(models.Model):
         return {
             "id": self.id,
             "username": self.user.username,
+            "userID": self.user.id,
             "userimage": (self.user.profileImage.url if self.user.profileImage else "None"),
             "headline": self.headline,
             "likes": self.likes.all().count(),
             "timestamp": self.dateFormat(),
             "image": self.image.url
+        }
+        
+    def serializeProfile(self):
+        return {
+            "id": self.id,
+            "image": self.image.url,
+            "userID": self.user.id,
+            "timestamp": self.timestamp
         }

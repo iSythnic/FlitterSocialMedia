@@ -1,6 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root
+{
+    --background-grey: #f2f2f2;
+    --background-white: #FFFFFF;
+    --primary: #65B781;
+    --secondary: #000000;
+}
+
 *{
     padding: 0;
     margin: 0;
+    background-color: var(--background-grey);
+    font-family: 'Inter', sans-serif !important; 
+    background-color: rgba(255,255,255,0);
+}
+body
+{
+    background-color: var(--background-grey) !important;
+}
+
+.navbar
+{
+    width: 5rem;
+    height: 100vh;
+    position: fixed;
+    display: block;
+    background-color: var(--background-white) !important;
+    -webkit-box-shadow: 3px 0px 17px -10px rgba(0,0,0,0.60); 
+    box-shadow: 3px 0px 17px -10px rgba(0,0,0,0.60);
+    padding: 0;
+    margin: 0;
+    transition: all .300s ease
+}
+
+
+.navbar:hover
+{
+    width: 15rem;
+}
+
+.navbar-nav
+{
+    display: flex;
+    flex-direction: column !important;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+.navbar-nav li:hover
+{
+    background: var(--background-grey);
+    border-right: 3px solid var(--primary);
+}
+
+.navbar-nav li:hover:last-child
+{
+    margin-top: auto;
+    background: var(--background-white) !important;
+    border-right: none;
+    cursor: initial;
+}
+
+.navbar-nav li:last-child
+{
+    margin-top: auto;
+}
+
+.navbar-nav li
+{
+    width: 100%;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    transition: background .8s ease;
+}
+
+.navbar-nav li a
+{
+    width: 13rem;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    gap: 3rem;
+    text-decoration: none;
+    color: var(--secondary);
+}
+
+.navbar-nav li a div
+{
+    width: 3rem;
+    border-radius: 1rem;
+    background-color: rgba(255,255,255,0);
+}
+
+.profileImage
+{
+    border-radius: 50%;
+    width: 3rem;
+}
+
+.companyImage
+{
+    width: 3rem;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+    border-radius: 1rem;
+}
+
+.navbar-image
+{
+    width: 2rem;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+    background-color: rgba(255,255,255,0);
+}
+
+
+.main
+{
+    padding-left: 5rem;
 }
 
 body{
@@ -231,3 +353,34 @@ body{
         visibility: hidden;
     }
 }
+
+.post-card
+{
+    width: 400px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.post-card-header
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.post-card-header .profile-img-container
+{
+    width: 12%;
+    aspect-ratio: 1;
+    display: block;
+}
+
+.post-card-header .profile-img-container img
+{
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+

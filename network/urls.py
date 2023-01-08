@@ -12,5 +12,5 @@ urlpatterns = [
 
     path("share", views.handle_post, name="handle_post"),
     path("loadfeed", views.handle_feed, name="handle_feed"),
-    path("posts/<int:id>", views.fetch_user_posts, name="fetch_user_posts"),
+    path("getUserPosts/<int:id>", views.fetch_user_posts, name="fetch_user_posts")
 ]

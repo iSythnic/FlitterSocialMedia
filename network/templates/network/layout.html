@@ -29,42 +29,87 @@
                     </div>
                 </form>
             </div>
-        {% endif %}
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Network</a>
-            <div>
-              <ul class="navbar-nav mr-auto">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <ul class="navbar-nav">
+                    <li class="nav-select">
+                        <a href="{% url 'profile' user.id %}">
+                            {% if user.profileImage %}
+                                <img src="{{user.profileImage.url }}" alt="{{user.username}}'s profile" class="navbar-image profileImage">
+                            {% else %}
+                                <img src="https://ui-avatars.com/api/?name={{user.username}}&background=65B781&color=fff&format=png" alt="{{user.username}}'s profile" class="profileImage">
+                            {% endif %}
+                            <span>Profile</span>
+                        </a>
                     </li>
-                {% endif %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'index' %}">All Posts</a>
-                </li>
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Following</a>
+                    <li class="nav-select">
+                        <a href="{% url 'index' %}">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="46.128" height="50.808" viewBox="0 0 46.128 50.808" class="navbar-image">
+                                    <g id="home_3_" data-name="home (3)" transform="translate(-1)">
+                                        <path id="Path_10" data-name="Path 10" d="M3,18.383,24.064,2,45.128,18.383V44.128a4.681,4.681,0,0,1-4.681,4.681H7.681A4.681,4.681,0,0,1,3,44.128Z" transform="translate(0)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                        <path id="Path_11" data-name="Path 11" d="M9,35.4V12H23.043V35.4" transform="translate(8.043 13.404)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <span>Home</span>
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    <li class="nav-select">
+                        <a>
+                            <div>
+                                <svg id="compass" xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54" class="navbar-image">
+                                    <circle id="Ellipse_6" data-name="Ellipse 6" cx="25" cy="25" r="25" transform="translate(2 2)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                    <path id="Path_12" data-name="Path 12" d="M29.09,7.76l-5.332,16-16,5.332,5.332-16Z" transform="translate(8.728 8.728)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                </svg>
+                            </div>
+                            <span>Explore</span>                       
+                        </a>
+                    </li>
+                    <li class="nav-select">
+                        <a id="create-post-btn">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54" class="navbar-image">
+                                    <g id="plus-square" transform="translate(-1 -1)">
+                                        <rect id="Rectangle_70" data-name="Rectangle 70" width="50" height="50" rx="2" transform="translate(3 3)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                        <line id="Line_1" data-name="Line 1" y2="17" transform="translate(27.359 19.5)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                        <line id="Line_2" data-name="Line 2" x2="17" transform="translate(19.5 27.359)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <span>Create</span>                                  
+                        </a>
                     </li>
                     <li>
-                        <button class="btn btn-primary" id="create-post-btn">Create Post</button>
+                        <a>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="38.923" height="56.915" viewBox="0 0 38.923 56.915" class="companyImage" fill="">
+                                <defs>
+                                    <clipPath id="clip-path">
+                                    <rect id="Rectangle_68" data-name="Rectangle 68" width="38.923" height="56.915" fill="none"/>
+                                    </clipPath>
+                                    <clipPath id="clip-path-2">
+                                    <rect id="Rectangle_67" data-name="Rectangle 67" width="29.189" height="52.049" fill="#9acdab"/>
+                                    </clipPath>
+                                </defs>
+                                <g id="Group_6" data-name="Group 6" clip-path="url(#clip-path)">
+                                    <path id="Path_1" data-name="Path 1" d="M0,161.92v.4c0-.067,0-.136,0-.2s0-.133,0-.2" transform="translate(0 -124.667)" fill="#65b781"/>
+                                    <path id="Path_2" data-name="Path 2" d="M.02,98.064A19.461,19.461,0,1,0,9.747,80.807V83.9A14.6,14.6,0,0,1,29.207,97.381c0,.092,0,.186,0,.281s0,.189,0,.281A14.6,14.6,0,0,1,.02,98.064" transform="translate(-0.015 -60.208)" fill="#65b781"/>
+                                    <path id="Path_3" data-name="Path 3" d="M0,162.12c0,.067,0,.136,0,.2v-.4c0,.067,0,.133,0,.2" transform="translate(0 -124.667)" fill="#65b781"/>
+                                    <g id="Group_5" data-name="Group 5" transform="translate(0.002)">
+                                    <g id="Group_4" data-name="Group 4">
+                                        <g id="Group_3" data-name="Group 3" clip-path="url(#clip-path-2)">
+                                        <path id="Path_4" data-name="Path 4" d="M.01,0V37.656c0,.067,0,.133,0,.2A14.6,14.6,0,0,0,29.2,37.734a9.73,9.73,0,1,1,0-.561A14.6,14.6,0,0,0,9.74,23.69V10.027A10.033,10.033,0,0,0,.01,0" transform="translate(-0.01)" fill="#9acdab"/>
+                                        </g>
+                                    </g>
+                                    </g>
+                                </g>
+                            </svg> 
+                            <span>BizU</span>                             
+                        </a>
                     </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li>
-                {% endif %}
-              </ul>
-            </div>
-          </nav>
-        
-        <div class="body">
+                </ul>
+            </nav>
+        {% endif %}
+        <div class="main">
             {% block body %}
             {% endblock %}
         </div>
