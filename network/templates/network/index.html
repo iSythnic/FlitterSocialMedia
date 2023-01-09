@@ -3,19 +3,20 @@
 
 {% block scripts %}
     <scirpt src="{% static 'network/javascript/LoadFeed.js' %}" type="text/javascript" defer></scirpt>
+    <scirpt src="{% static 'network/javascript/ReadMore.js' %}" type="text/javascript" defer></scirpt>
 {% endblock %}
 
 {% block body %}
     <div class="feed">
         <ul class="feed-container" id="feed-container">
             <li>
-                <article class="post-card">
+                <article class="post-card" id="1">
                     <div class="post-card-header">
                         <a class="profile-img-container">
                             <img class="profile-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg">
                         </a>
                         <a class="profile-username">ElonMa</a>
-                        <box-icon name='dots-vertical-rounded' class="icon"></box-icon>
+                        <box-icon name='dots-vertical-rounded' class="icon" id="post-menu-icon"></box-icon>
                     </div>
                     <div class="post-image-container">
                         <img class="post-image" src="https://imgv3.fotor.com/images/blog-cover-image/part-blurry-image.jpg">
@@ -30,8 +31,11 @@
                     </div>
                     <div class="post-description-container">
                         <p>
-                            #Neuralink is aiming to design a fully implantable, cosmetically invisible brain-computer interface to let you control a computer or mobile device anywhere you go.
-                            Micron-scale threads would be inserted into areas of the brain that control movement. Each thread contains many electrodes and connects them to an implant called the “Link.”
+                            <span class="truncate active" id="desc-1">
+                                #Neuralink is aiming to design a fully implantable, cosmetically invisible brain-computer interface to let you control a computer or mobile device anywhere you go.
+                                Micron-scale threads would be inserted into areas of the brain that control movement. Each thread contains many electrodes and connects them to an implant called the “Link.”
+                            </span>
+                            <a href="#" class="read-more-link" data-descid="desc-1">Read More</a>
                         </p>
                     </div>
                     <span class="post-timestamp">

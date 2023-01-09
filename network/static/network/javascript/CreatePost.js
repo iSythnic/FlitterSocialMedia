@@ -44,3 +44,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
         `;
     });
 })
+
+document.querySelectorAll('.read-more-link').forEach(link => {link.addEventListener('click', (event) => {
+    event.preventDefault();
+    console.log("123");
+    console.log(event.target);
+    console.log(event.target.dataset.descid);
+    const line = document.querySelector(`#${event.target.dataset.descid}`);
+    console.log(line);
+    line.classList.remove("active");
+    event.target.remove();
+})});
